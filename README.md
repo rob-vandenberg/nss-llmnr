@@ -2,7 +2,7 @@
 
 Makes Linux resolve Windows computer names (LLMNR) the way Windows does:
 ask on all network cards, **wait for all answers**, then use the address in
-your own subnet first.
+your own subnet first. (See RFC 4795)
 
 Without this, Linux (systemd-resolved) takes the first answer that arrives.
 For a Windows PC with several network cards that is a random address.
