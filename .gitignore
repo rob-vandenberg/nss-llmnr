@@ -7,7 +7,7 @@ logs/
 backup/
 artwork/
 release/
-test
+test/
 *.bak/
 
 # Files
