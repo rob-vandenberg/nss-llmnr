@@ -18,6 +18,9 @@
  * License: AGPL-3.0-or-later (see LICENSE)
  */
 
+/* Release version (x.y.z). release.bat reads this line to create the Git tag. */
+#define NSS_LLMNR_VERSION "0.1.2"
+
 #define _GNU_SOURCE
 #include <nss.h>
 #include <netdb.h>

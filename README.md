@@ -291,4 +291,8 @@ sudo make uninstall LIBDIR=/usr/lib64
 
 Copyright (C) 2026 Rob Vandenberg
 
-nss-llmnr is licensed under the GNU Affero General Public License, version 3 or later (AGPL-3.0-or-later). See the `LICENSE` file for the full text.
+This program is free software: you can redistribute it and/or modify it under the terms of the GNU Affero General Public License as published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along with this program. If not, see <https://www.gnu.org/licenses/>. The full text is also included in the `LICENSE` file.
