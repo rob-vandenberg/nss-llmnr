@@ -1,1 +1,24 @@
+# Folders
+.*/
+!.github/
+github/
+docs/
+logs/
+backup/
+artwork/
+release/
+test
+*.bak/
+
+# Files
+*.bak
+*.ai
+*.psd
+*.bat
+*.zip
+*.jfif
+*.py
+
+#nss_llmnr
+GUIDE.md
 libnss_llmnr.so.2
