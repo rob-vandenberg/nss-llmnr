@@ -1,6 +1,7 @@
 /*
  * nss-llmnr - glibc NSS module that resolves single-label host names
- * via LLMNR (RFC 4795) the way Windows does:
+ * (optionally with a ".local" suffix) via LLMNR (RFC 4795) the way Windows
+ * does:
  *
  *   1. send the LLMNR query on every active IPv4 interface
  *   2. wait and collect ALL answers from all responders
@@ -19,7 +20,7 @@
  */
 
 /* Release version (x.y.z). release.bat reads this line to create the Git tag. */
-#define NSS_LLMNR_VERSION "0.1.2"
+#define NSS_LLMNR_VERSION "0.1.3"
 
 #define _GNU_SOURCE
 #include <nss.h>
@@ -90,15 +91,22 @@ static int get_ifaces(struct iface *ifs)
     return n;
 }
 
-/* Single label: no dots, except an optional trailing one. */
+/* Single label, or a single label followed by ".local". An optional trailing
+ * dot is allowed on both. The ".local" suffix is removed: LLMNR queries are
+ * for the bare host name. */
 static int normalise_name(const char *in, char *out)
 {
+    static const char suffix[] = ".local";
+    const size_t suffix_len = sizeof suffix - 1;
     size_t len = strlen(in);
 
-    if (len == 0 || len > 63 + 1)
+    if (len == 0 || len > 63 + suffix_len + 1)
         return -1;
     if (in[len - 1] == '.')
         len--;
+    if (len >= suffix_len &&
+        strncasecmp(in + len - suffix_len, suffix, suffix_len) == 0)
+        len -= suffix_len;
     if (len == 0 || len > 63)
         return -1;
     if (memchr(in, '.', len))

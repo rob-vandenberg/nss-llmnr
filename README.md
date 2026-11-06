@@ -12,7 +12,7 @@ nss-llmnr brings the Windows behaviour to Linux.
 
 ## How it works
 
-1. The module handles single-label names only (`winpc01`, not `winpc01.example.com`).
+1. The module handles single-label names, with or without a `.local` suffix (`winpc01` or `winpc01.local`, not `winpc01.example.com`). The suffix is removed before the query is sent.
 2. It sends the LLMNR query on every active IPv4 interface.
 3. After the first answer arrives, it keeps listening for another 250 ms to collect answers from the host's other interfaces.
 4. It sorts the collected addresses and returns them in this order:
@@ -275,9 +275,9 @@ sudo make uninstall LIBDIR=/usr/lib64
 ## Limitations
 
 1. IPv4 only. IPv6 LLMNR queries and answers are not supported.
-2. Single-label names only. Fully qualified names are passed on to the next source in `nsswitch.conf`.
+2. Single-label names only, optionally followed by `.local`. Other fully qualified names are passed on to the next source in `nsswitch.conf`.
 3. A successful lookup takes at least 250 ms longer than the first answer, because the module waits for answers from all of the host's interfaces.
-4. An unknown name delays the lookup by up to about 900 ms (3 × 300 ms) before the next source is tried.
+4. An unknown name delays the lookup by up to about 900 ms (3 × 300 ms) before the next source is tried. With `llmnr` listed before `mdns4_minimal`, this also applies to `.local` names of devices that only answer mDNS.
 5. Requires glibc 2.25 or newer.
 
 ## References
